@@ -143,7 +143,7 @@ params=4*h*(d+h+1)=4*64*(9+64+1)=18,944
 params=3*h*(d+h+1)=3*64*(9+64+1)=14,208
 
 
-●PyTorch Parameter Count Reconciliation: PyTorch built-in layers report 4,800 (RNN), 19,200 (LSTM), and 14,400 (GRU) parameters because PyTorch maintains two independent bias vectors per gate (𝑏𝑖ℎ and 𝑏ℎℎ), adding 1⋅ℎ, 4⋅ℎ, and 3⋅ℎ extra parameters respectively. Custom cells fuse these into a single unified bias vector.
+●PyTorch Parameter Count Reconciliation: PyTorch built-in layers report 4,800 (RNN), 19,200 (LSTM), and 14,400 (GRU) parameters because PyTorch maintains two independent bias vectors per gate (bih and bhh), adding 1*h, 4*h, and 3*h extra parameters respectively. Custom cells fuse these into a single unified bias vector.
 
 **Experiment 2: Adding Problem**
 
@@ -208,7 +208,7 @@ Illustrates the vanishing gradient phenomenon.
 
 
 ** HAR Classification Results**
-All models used an Adam optimizer (𝑙𝑟=1×10−3), hidden size ℎ=64, batch size 64, and identical epoch budgets across 3 seeds.
+All models used an Adam optimizer (lr=1×10−3), hidden size h=64, batch size 64, and identical epoch budgets across 3 seeds.
 Table 1: Performance Summary on UCI HAR Test Set
 
 
@@ -267,11 +267,11 @@ on model performance.
 **5.	Gradients, ablations and analysis** 
 5(a) Gradient Norm Analysis: Plotting |𝜕𝐿/𝜕ℎ𝑡| versus step index 𝑡 at 𝑇=100 demonstrates severe exponential decay in Vanilla RNNs prior to convergence. GRU architectures sustain consistent non-zero gradient values across earlier time steps, facilitating long-range temporal credit assignment.
 
-**5(b) Hidden-Size Sweep 𝟏𝟔,𝟑𝟐,𝟔𝟒,𝟏𝟐𝟖 on HAR:**
+**5(b) Hidden-Size Sweep 16,32,64,128 on HAR:**
 
 Increasing ℎ from 16 to 64 steadily improves classification macro F1 score. Beyond ℎ=64, performance gains plateau while runtime increases linearly.
 
-**5(c) Individual Ablation (LSTM Forget-Gate Bias Init 𝟎 vs. 𝟏 at 𝑻=𝟐𝟎𝟎):**
+**5(c) Individual Ablation (LSTM Forget-Gate Bias Init 0 vs. 1 at T=200):**
 
 Initialising the forget-gate bias to 1.0 keeps the gate open early in training, preventing premature gradient vanishing and enabling convergence on the adding problem. Initialising to 0.0 leads to complete training stagnation (MSE ≈0.167).
 
