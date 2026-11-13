@@ -130,18 +130,18 @@ Evaluation Verification:
 
     Unit Testing & Numerical Agreement: All three cells built from basic PyTorch matrix operations were verified against torch.nn.RNNCell, torch.nn.LSTMCell, and torch.nn.GRUCell. After copying layer parameters, maximum absolute tensor differences across random input batches were strictly <1×10−5.
 ●
-Theoretical Parameter Derivations vs. Code (𝒅=𝟗, 𝒉=𝟔𝟒):
-●
-RNN Cell:
+Theoretical Parameter Derivations vs. Code (d=9, h=64):
+
+● RNN Cell:
 𝑃𝑎𝑟𝑎𝑚𝑠=ℎ⋅(𝑑+ℎ+1)=64⋅(9+64+1)=4,736
-●
-LSTM Cell:
+
+●LSTM Cell:
 𝑃𝑎𝑟𝑎𝑚𝑠=4⋅ℎ⋅(𝑑+ℎ+1)=4⋅64⋅(9+64+1)=18,944
-●
-GRU Cell:
+
+●GRU Cell:
 𝑃𝑎𝑟𝑎𝑚𝑠=3⋅ℎ⋅(𝑑+ℎ+1)=3⋅64⋅(9+64+1)=14,208
-●
-PyTorch Parameter Count Reconciliation: PyTorch built-in layers report 4,800 (RNN), 19,200 (LSTM), and 14,400 (GRU) parameters because PyTorch maintains two independent bias vectors per gate (𝑏𝑖ℎ and 𝑏ℎℎ), adding 1⋅ℎ, 4⋅ℎ, and 3⋅ℎ extra parameters respectively. Custom cells fuse these into a single unified bias vector.
+
+●PyTorch Parameter Count Reconciliation: PyTorch built-in layers report 4,800 (RNN), 19,200 (LSTM), and 14,400 (GRU) parameters because PyTorch maintains two independent bias vectors per gate (𝑏𝑖ℎ and 𝑏ℎℎ), adding 1⋅ℎ, 4⋅ℎ, and 3⋅ℎ extra parameters respectively. Custom cells fuse these into a single unified bias vector.
 
 **Experiment 2: Adding Problem**
 
