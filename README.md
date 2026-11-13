@@ -31,7 +31,7 @@ Human Activity Recognition (HAR)
 
 ### 1.	Data pipelines :
 
-1) Input Dimensions: 128 sequence steps across 9 inertial signal channels (𝑁𝑡𝑟𝑎𝑖𝑛=7,352, 𝑁𝑡𝑒𝑠𝑡=2,947).
+1) Input Dimensions: 128 sequence steps across 9 inertial signal channels (Ntrain=7,352, Ntest=2,947).
 2) Validation Split: 4 subjects were held out from the 21 training subjects using np.random.default_rng(seed).choice(train_subjects, 4, replace=False) for each of the 3 seeds (42, 123, 999).
 3) Preprocessing: Per-channel mean and standard deviation were calculated strictly on the training partition of each split to prevent data leakage.
 
