@@ -120,13 +120,24 @@ Models Compared:
     LSTM
     GRU
 
-Evaluation Metrics:
+Evaluation Verification:
 
-    Accuracy
-    Macro F1-Score
-    Confusion Matrix
+    Unit Testing & Numerical Agreement: All three cells built from basic PyTorch matrix operations were verified against torch.nn.RNNCell, torch.nn.LSTMCell, and torch.nn.GRUCell. After copying layer parameters, maximum absolute tensor differences across random input batches were strictly <1×10−5.
+●
+Theoretical Parameter Derivations vs. Code (𝒅=𝟗, 𝒉=𝟔𝟒):
+●
+RNN Cell:
+𝑃𝑎𝑟𝑎𝑚𝑠=ℎ⋅(𝑑+ℎ+1)=64⋅(9+64+1)=4,736
+●
+LSTM Cell:
+𝑃𝑎𝑟𝑎𝑚𝑠=4⋅ℎ⋅(𝑑+ℎ+1)=4⋅64⋅(9+64+1)=18,944
+●
+GRU Cell:
+𝑃𝑎𝑟𝑎𝑚𝑠=3⋅ℎ⋅(𝑑+ℎ+1)=3⋅64⋅(9+64+1)=14,208
+●
+PyTorch Parameter Count Reconciliation: PyTorch built-in layers report 4,800 (RNN), 19,200 (LSTM), and 14,400 (GRU) parameters because PyTorch maintains two independent bias vectors per gate (𝑏𝑖ℎ and 𝑏ℎℎ), adding 1⋅ℎ, 4⋅ℎ, and 3⋅ℎ extra parameters respectively. Custom cells fuse these into a single unified bias vector.
 
-Experiment 2: Adding Problem
+**Experiment 2: Adding Problem**
 
 Sequence Lengths:
 
@@ -191,12 +202,108 @@ File:
 
 hidden_size_sweep.png
 
-Investigates the impact of hidden layer size:
+** HAR Classification Results**
+All models used an Adam optimizer (𝑙𝑟=1×10−3), hidden size ℎ=64, batch size 64, and identical epoch budgets across 3 seeds.
+Table 1: Performance Summary on UCI HAR Test Set
 
-[16, 32, 64, 128]
+
+| Model | Parameters| Mean Test Accuracy (%) |Mean Macro F1|Sec / Epoch |
+| :--- | :---: | ---: | ---: | ---: |
+| Vanilla RNN | 5,190 | 77.57% ± 4.71% |0.7708 ± 0.0507|0.277s|
+
+
+Model
+Parameters
+Mean Test Accuracy (%)
+Mean Macro F1
+Sec / Epoch
+LSTM
+19,590
+89.06% ± 0.88%
+0.8909 ± 0.0090
+0.280s
+GRU
+14,790
+90.77% ± 0.83%
+0.9085 ± 0.0087
+0.277s
+Detailed Per-Seed Breakdown (from results.csv):
+●
+RNN:
+○
+Seed 42: Acc 77.81%, Macro F1 0.7741, 0.314s/epoch
+○
+Seed 123: Acc 82.15%, Macro F1 0.8197, 0.270s/epoch
+○
+Seed 999: Acc 72.75%, Macro F1 0.7184, 0.248s/epoch
+●
+LSTM:
+○
+Seed 42: Acc 88.06%, Macro F1 0.8806, 0.258s/epoch
+○
+Seed 123: Acc 89.45%, Macro F1 0.8946, 0.303s/epoch
+○
+Seed 999: Acc 89.68%, Macro F1 0.8975, 0.281s/epoch
+●
+GRU:
+○
+Seed 42: Acc 90.16%, Macro F1 0.9018, 0.254s/epoch
+○
+Seed 123: Acc 90.43%, Macro F1 0.9053, 0.295s/epoch
+○
+Seed 999: Acc 91.72%, Macro F1 0.9183, 0.282s/epoch Adding Problem Benchmark & Solved Runs
+Runs are marked as solved if the final Test MSE is <0.05 (compared to baseline MSE ≈0.167).
+Table 2: Test MSE and Solved Run Statistics across Sequence Lengths (𝑻)
+Sequence Length (𝑇)
+Model
+Mean Test MSE
+Solved Runs / Total
+𝑻=𝟓𝟎
+Vanilla RNN
+0.1745 ± 0.0005
+0 / 3
+LSTM
+0.0703 ± 0.0894
+2 / 3
+GRU
+0.0058 ± 0.0035
+3 / 3
+𝑻=𝟏𝟎𝟎
+Vanilla RNN
+0.1701 ± 0.0005
+0 / 3
+LSTM
+0.1700 ± 0.0013
+0 / 3
+GRU
+0.0043 ± 0.0007
+3 / 3
+𝑻=𝟐𝟎𝟎
+Vanilla RNN
+0.1696 ± 0.0020
+0 / 3
+LSTM
+0.1696 ± 0.0026
+0 / 3
+GRU
+0.0082 ± 0.0036
+3 / 3
+𝑻=𝟒𝟎𝟎
+Vanilla RNN
+0.1573 ± 0.0055
+0 / 3
+LSTM
+0.1566 ± 0.0055
+0 / 3
+GRU
+0.1503 ± 0.0018
+0 / 3
+
+
 
 on model performance.
-Results
+**5.	Gradients, ablations and analysis** 
+5(a) Gradient Norm Analysis: Plotting |𝜕𝐿/𝜕ℎ𝑡| versus step index 𝑡 at 𝑇=100 demonstrates severe exponential decay in Vanilla RNNs prior to convergence. GRU architectures sustain consistent non-zero gradient values across earlier time steps, facilitating long-range temporal credit assignment.
 
 Results are stored in:
 
@@ -217,13 +324,7 @@ Key Findings
 
 Technologies Used
 
-    Python
-    PyTorch
-    NumPy
-    Pandas
-    Matplotlib
-    Seaborn
-    Scikit-Learn
+    Python|    PyTorch|    NumPy|   Pandas|    Matplotlib|    Seaborn |    Scikit-Learn
 
 References
 
