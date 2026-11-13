@@ -1,5 +1,6 @@
 # 2026AJ05998_DNN_Assignment2
-# Sequence Modeling with RNN, LSTM, and GRU Networks
+# Problem 1: Sequence Modeling with RNN, LSTM, and GRU Networks
+# Problem 2: The Transformer 
 # Student Information
 
     Name: SAKTHIVEL S.
@@ -7,69 +8,60 @@
     Assignment: Assignment 2
     Topic: Human Activity Recognition and Sequence Learning using RNN, LSTM, and GRU
 
-Project Overview
+# Project Overview
 
 This assignment investigates recurrent neural network architectures for sequential data modeling. The project consists of two major tasks:
 
-    Human Activity Recognition (HAR)
+    **Human Activity Recognition (HAR)**
         Classification of human activities using smartphone sensor data.
         Comparison of RNN, LSTM, and GRU architectures.
 
-    Adding Problem
+    **Adding Problem 1**
         Synthetic sequence learning benchmark.
         Evaluation of long-term dependency learning capabilities.
         Analysis of vanishing gradient effects.
 
-Dataset
+# Dataset
 Human Activity Recognition (HAR)
 
-Dataset Source:
+**1.	Data pipelines :**
 
-    UCI Machine Learning Repository
-    Human Activity Recognition Using Smartphones Dataset
+1) Input Dimensions: 128 sequence steps across 9 inertial signal channels (𝑁𝑡𝑟𝑎𝑖𝑛=7,352, 𝑁𝑡𝑒𝑠𝑡=2,947).
+2) Validation Split: 4 subjects were held out from the 21 training subjects using np.random.default_rng(seed).choice(train_subjects, 4, replace=False) for each of the 3 seeds (42, 123, 999).
+3) Preprocessing: Per-channel mean and standard deviation were calculated strictly on the training partition of each split to prevent data leakage.
 
-Activities:
-Class ID	Activity
-1	Walking
-2	Walking Upstairs
-3	Walking Downstairs
-4	Sitting
-5	Standing
-6	Laying
-
-Dataset Shape:
+# Dataset Shape:
 Split	Samples	Sequence Length	Features
+
 Training	7352	128	9
 Testing	2947	128	9
-
+**Dataset URL:** url = 'https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip'
 Sensor Signals:
 
     Body Acceleration (X, Y, Z)
     Body Gyroscope (X, Y, Z)
     Total Acceleration (X, Y, Z)
 
-Installation
+# 2.	Cells from scratch 
 
-Install required libraries:
+**Install required libraries:**
 
 pip install numpy pandas matplotlib seaborn scikit-learn torch torchvision torchaudio
 
 Project Structure
-
 .
-├── assignment2.ipynb
+├── 2026AJ05998_DNN_Assignment
 ├── README.md
+├── requirements.txt
+├── report.pdf
 ├── results.csv
-├── class_balance.png
-├── confusion_matrix.png
-├── learning_curve_T200.png
-├── mse_vs_T.png
-├── gradient_norm.png
-├── hidden_size_sweep.png
-└── har/
+├── problem1.ipynb
+├── figures/
+├── problem2.ipynb
+├── figures/
 
-Methodology
-Data Preprocessing
+# 3.	HAR classification
+**Data Preprocessing**
 
     Download HAR dataset.
     Load inertial sensor signals.
@@ -77,7 +69,7 @@ Data Preprocessing
     Create custom PyTorch datasets and dataloaders.
 
 Models Implemented
-Simple RNN
+**Simple RNN**
 
 Standard recurrent neural network:
 
@@ -89,10 +81,9 @@ Characteristics:
     Fast training
     Suffers from vanishing gradients
 
-LSTM
+**LSTM**
 
 Long Short-Term Memory network:
-
 Components:
 
     Input Gate
@@ -105,7 +96,7 @@ Advantages:
     Handles long-term dependencies
     Reduces vanishing gradient problem
 
-GRU
+**GRU**
 
 Gated Recurrent Unit:
 
@@ -121,7 +112,7 @@ Advantages:
     Competitive performance
 
 Experiments
-Experiment 1: HAR Classification
+## Experiment 1: HAR Classification
 
 Models Compared:
 
