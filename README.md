@@ -212,30 +212,18 @@ Table 1: Performance Summary on UCI HAR Test Set
 | Vanilla RNN | 5,190 | 77.57% ± 4.71% |0.7708 ± 0.0507|0.277s|
 
 
-Model
-Parameters
-Mean Test Accuracy (%)
-Mean Macro F1
-Sec / Epoch
-LSTM
-19,590
-89.06% ± 0.88%
-0.8909 ± 0.0090
-0.280s
-GRU
-14,790
-90.77% ± 0.83%
-0.9085 ± 0.0087
-0.277s
+| Model | Parameters| Mean Test Accuracy (%) |Mean Macro F1|Sec / Epoch |
+| :--- | :---: | ---: | ---: | ---: |
+|LSTM| 19,590| 89.06% ± 0.88%| 0.8909 ± 0.0090| 0.280s|
+|GRU| 14,790| 90.77% ± 0.83%| 0.9085 ± 0.0087| 0.277s|
+
 Detailed Per-Seed Breakdown (from results.csv):
-●
-RNN:
-○
-Seed 42: Acc 77.81%, Macro F1 0.7741, 0.314s/epoch
-○
-Seed 123: Acc 82.15%, Macro F1 0.8197, 0.270s/epoch
-○
-Seed 999: Acc 72.75%, Macro F1 0.7184, 0.248s/epoch
+
+**● RNN:**
+
+* Seed 42: Acc 77.81%, Macro F1 0.7741, 0.314s/epoch
+*Seed 123: Acc 82.15%, Macro F1 0.8197, 0.270s/epoch
+*Seed 999: Acc 72.75%, Macro F1 0.7184, 0.248s/epoch
 ●
 LSTM:
 ○
