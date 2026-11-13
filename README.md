@@ -353,11 +353,11 @@ tracks long-range syntactic patterns like line breaks and character names.
 ●
 Causal Mask Removal Experiment: Removing the causal mask allows information leakage across time steps during training. Training loss drops immediately to ≈2.0𝑛𝑎𝑡𝑠 because tokens can directly inspect future answers. At test time, autoregressive generation completely fails because the network never learned causal dependency tracking.
 
-<img width="700" height="450" alt="no_mask_comparison" src="https://github.com/user-attachments/assets/0633c5ce-6825-481c-a68b-6f5569a81c94" />
+<img width="700" height="400" alt="lm_learning_curve" src="https://github.com/user-attachments/assets/7437a8f2-b7fe-4a6c-a81e-583b12863642" />
 
-<img width="1200" height="500" alt="attention_heatmaps" src="https://github.com/user-attachments/assets/174281b1-a669-4f76-a49c-b0e3632f87b7" />
+<img width="1200" height="500" alt="attention_heatmaps" src="https://github.com/user-attachments/assets/290f72a3-4577-4aae-ae66-60875f034474" />
 
-<img width="700" height="450" alt="heads_ablation" src="https://github.com/user-attachments/assets/b22c129f-4cfe-4680-9009-eafe4e2518e1" />
+<img width="700" height="450" alt="no_mask_comparison" src="https://github.com/user-attachments/assets/cef29ff5-1405-4814-b805-5713fa77aaeb" />
 
 
 References
