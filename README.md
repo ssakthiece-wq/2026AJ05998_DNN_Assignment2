@@ -259,14 +259,32 @@ Table 2: Test MSE and Solved Run Statistics across Sequence Lengths (𝑻)
 
 
 on model performance.
+
 **5.	Gradients, ablations and analysis** 
 5(a) Gradient Norm Analysis: Plotting |𝜕𝐿/𝜕ℎ𝑡| versus step index 𝑡 at 𝑇=100 demonstrates severe exponential decay in Vanilla RNNs prior to convergence. GRU architectures sustain consistent non-zero gradient values across earlier time steps, facilitating long-range temporal credit assignment.
+
+**5(b) Hidden-Size Sweep 𝟏𝟔,𝟑𝟐,𝟔𝟒,𝟏𝟐𝟖 on HAR:**
+
+Increasing ℎ from 16 to 64 steadily improves classification macro F1 score. Beyond ℎ=64, performance gains plateau while runtime increases linearly.
+
+**5(c) Individual Ablation (LSTM Forget-Gate Bias Init 𝟎 vs. 𝟏 at 𝑻=𝟐𝟎𝟎):**
+
+Initialising the forget-gate bias to 1.0 keeps the gate open early in training, preventing premature gradient vanishing and enabling convergence on the adding problem. Initialising to 0.0 leads to complete training stagnation (MSE ≈0.167).
 
 Results are stored in:
 
 results.csv
 
 **Key Findings**
+
+Gradient Dynamics & Long Memory: Vanilla RNNs collapse beyond sequence length 𝑇=50 due to vanishing gradients in unrolled backpropagation. GRUs maintain long-term memory via additive update paths:
+
+ℎ𝑡=(1−𝑧𝑡)⊙ℎ𝑡−1+𝑧𝑡⊙ℎ̃𝑡
+
+**● Wearable System Deployment Recommendation: For battery-powered wearable devices running HAR classification, GRU is the superior model:**
+
+1.Accuracy & Stability: Highest mean accuracy (90.77%) and lowest seed variance (±0.83%).
+2.Parameter Footprint: Uses 24.5% fewer parameters than LSTM (14,790 vs. 19,590), directly conserving memory access bandwidth and battery power.
 
     LSTM generally achieves the highest classification performance.
     GRU offers a strong trade-off between accuracy and computational efficiency.
