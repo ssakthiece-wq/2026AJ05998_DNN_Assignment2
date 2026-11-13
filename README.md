@@ -2,7 +2,7 @@
 
 1.	GitHub Repository Link
 
-GitHub Repository: [https://github.com/ssakthiece-wq/SAKTHIVELS/](https://github.com/ssakthiece-wq/2026AJ05998_DNN_Assignment2)
+GitHub Repository: https://github.com/ssakthiece-wq/2026AJ05998_DNN_Assignment2
 
 # Problem 1: Sequence Modeling with RNN, LSTM, and GRU Networks
 # Problem 2: The Transformer 
@@ -161,25 +161,23 @@ Purpose:
     Observe performance degradation with increasing sequence length
 
 Visualizations
-1. Class Distribution
+1. Class balance Distribution
 
-File:
-
-class_balance.png
+<img width="600" height="500" alt="har_confusion_matrix" src="https://github.com/user-attachments/assets/3abcdd8d-8e31-42f2-87fe-4e2fe4e4d160" />
 
 Shows the distribution of activity classes in the HAR training set.
+
 2. Confusion Matrix
 
-File:
-
-confusion_matrix.png
+<img width="700" height="400" alt="har_class_balance" src="https://github.com/user-attachments/assets/aff73a14-27ae-4a31-b13b-0ee95fa86844" />
 
 Displays classification performance for the best-performing model.
+
 3. Learning Curve
 
-File:
+<img width="700" height="400" alt="adding_learning_curves_t200" src="https://github.com/user-attachments/assets/c46c9cda-7455-4325-8323-43cba2144c3d" />
 
-learning_curve_T200.png
+<img width="800" height="400" alt="gradient_norms_t100" src="https://github.com/user-attachments/assets/9b7d16d4-854d-48cb-b867-b5a83532bc19" />
 
 Compares training losses of:
 
@@ -188,25 +186,24 @@ Compares training losses of:
     GRU
 
 for sequence length T = 200.
+
 4. MSE vs Sequence Length
 
-File:
-
-mse_vs_T.png
+<img width="700" height="400" alt="ablation_study" src="https://github.com/user-attachments/assets/c81d2965-7c97-4174-8a43-ffac37e0043d" />
 
 Demonstrates model robustness as sequence length increases.
+
 5. Gradient Norm Analysis
 
-File:
+<img width="800" height="400" alt="gradient_norms_t100" src="https://github.com/user-attachments/assets/52c7e855-21c8-4945-913b-133e32caaf7e" />
 
-gradient_norm.png
 
 Illustrates the vanishing gradient phenomenon.
+
 6. Hidden Size Sweep
 
-File:
+<img width="700" height="400" alt="hidden_size_sweep" src="https://github.com/user-attachments/assets/cf40069e-953a-488d-ac71-440ee062e5b3" />
 
-hidden_size_sweep.png
 
 ** HAR Classification Results**
 All models used an Adam optimizer (𝑙𝑟=1×10−3), hidden size ℎ=64, batch size 64, and identical epoch budgets across 3 seeds.
@@ -345,12 +342,21 @@ A 4-layer Causal Transformer Language Model (𝑑=128,ℎ=4, context length 128,
 ● **Temperature 0.8:** Balanced entropy, structured character relationships, realistic Shakespearean formatting.
 ● **Temperature 1.5:** High entropy, frequent gibberish character combinations and broken syntax ("trotuncnene, thekfuics doke...").
 
+<img width="700" height="400" alt="lm_learning_curve" src="https://github.com/user-attachments/assets/f8634c0e-6db0-427d-9f9e-a7d7f155707b" />
+
 **Analysis and Ablations**
 ●
 Attention Heatmaps: Visualization shows Head 1 specializing in adjacent character transitions, while Head 2
 tracks long-range syntactic patterns like line breaks and character names.
 ●
 Causal Mask Removal Experiment: Removing the causal mask allows information leakage across time steps during training. Training loss drops immediately to ≈2.0𝑛𝑎𝑡𝑠 because tokens can directly inspect future answers. At test time, autoregressive generation completely fails because the network never learned causal dependency tracking.
+
+<img width="700" height="450" alt="no_mask_comparison" src="https://github.com/user-attachments/assets/0633c5ce-6825-481c-a68b-6f5569a81c94" />
+
+<img width="1200" height="500" alt="attention_heatmaps" src="https://github.com/user-attachments/assets/174281b1-a669-4f76-a49c-b0e3632f87b7" />
+
+<img width="700" height="450" alt="heads_ablation" src="https://github.com/user-attachments/assets/b22c129f-4cfe-4680-9009-eafe4e2518e1" />
+
 
 References
 
