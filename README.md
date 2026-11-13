@@ -1,87 +1,246 @@
 # 2026AJ05998_DNN_Assignment2
-2026AJ05998_DNN_Assignment2 
-# Bank Marketing Classification Using Machine Learning
 
-## a. Problem Statement
+# Sequence Modeling with RNN, LSTM, and GRU Networks
+# Student Information
 
-The objective of this project is to build and compare supervised machine learning models that predict whether a bank customer will subscribe to a term deposit as a result of a marketing campaign. This is a binary classification problem with target variable `y`:
+    Name: SAKTHIVEL S.
+    Course: Deep Neural Networks
+    Assignment: Assignment 2
+    Topic: Human Activity Recognition and Sequence Learning using RNN, LSTM, and GRU
 
-- `yes`: the customer subscribed to a term deposit.
-- `no`: the customer did not subscribe to a term deposit.
+# Project Overview
 
-The project compares five classification algorithms using multiple evaluation metrics. Using more than accuracy helps assess model performance when the target classes are imbalanced and when false-positive and false-negative predictions have different practical implications.
+This assignment investigates recurrent neural network architectures for sequential data modeling. The project consists of two major tasks:
 
-## b. Dataset Description
+    Human Activity Recognition (HAR)
+        Classification of human activities using smartphone sensor data.
+        Comparison of RNN, LSTM, and GRU architectures.
 
-**Dataset:** Bank Marketing  
-**Source:** UCI Machine Learning Repository  
-**Dataset URL:** https://archive.ics.uci.edu/dataset/222/bank+marketing
+    Adding Problem
+        Synthetic sequence learning benchmark.
+        Evaluation of long-term dependency learning capabilities.
+        Analysis of vanishing gradient effects.
 
-The Bank Marketing dataset contains customer attributes and information related to direct marketing campaigns. The target column is `y`, which indicates whether a customer subscribed to a term deposit. The commonly used full dataset contains 45,211 records and 16 input features, in addition to the target column; verify these counts against the exact dataset file used in the final experiment.
+Dataset
+Human Activity Recognition (HAR)
 
-Preprocessing should encode categorical variables and apply any numerical scaling required by the model. The same fitted preprocessing steps must be used during training and evaluation. If the objective is to predict subscription before a call, exclude `duration`, because it is only known after the call and may cause target leakage.
+Dataset Source:
 
-## c. GitHub Repository Link
+    UCI Machine Learning Repository
+    Human Activity Recognition Using Smartphones Dataset
 
-**GitHub Repository:** https://github.com/ssakthiece-wq/SAKTHIVELS
+Activities:
+Class ID	Activity
+1	Walking
+2	Walking Upstairs
+3	Walking Downstairs
+4	Sitting
+5	Standing
+6	Laying
 
-The repository should include the application, training code, dependency list, test CSV, saved trained models and preprocessing artifacts, and this README. Confirm that the required files and model artifacts are committed and visible in the repository before submission.
+Dataset Shape:
+Split	Samples	Sequence Length	Features
+Training	7352	128	9
+Testing	2947	128	9
 
-**Streamlit Application:** https://verbose-space-telegram-77pw645wwjg52pr65.github.dev/
+Sensor Signals:
 
-## d. Models Used
+    Body Acceleration (X, Y, Z)
+    Body Gyroscope (X, Y, Z)
+    Total Acceleration (X, Y, Z)
 
-The five classification models evaluated in this project are:
+# Installation
 
-1. **Logistic Regression** — a probabilistic linear classification model.
-2. **Decision Tree** — a rule-based model that can capture nonlinear relationships.
-3. **K-Nearest Neighbors (KNN)** — predicts a class based on nearby training examples and is sensitive to feature scaling.
-4. **Naive Bayes** — a probabilistic classifier based on Bayes' theorem and conditional-independence assumptions.
-5. **Support Vector Machine (SVM)** — learns a decision boundary between classes; its behaviour depends on the selected kernel and hyperparameters.
+Install required libraries:
 
-### Model Comparison Table
+pip install numpy pandas matplotlib seaborn scikit-learn torch torchvision torchaudio
 
-The following values are taken from `model_comparison.csv` file.
+# Project Structure
 
-| ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |
-|---|---:|---:|---:|---:|---:|---:|
-| Logistic Regression | 0.7548 | 0.7722 | 0.2662 | 0.6238 | 0.3732 | 0.2853 |
-| Decision Tree | 0.8251 | 0.7530 | 0.3452 | 0.5520 | 0.4247 | 0.3406 |
-| KNN | 0.8891 | 0.7138 | 0.5758 | 0.1975 | 0.2942 | 0.2919 |
-| Naive Bayes | 0.8452 | 0.7514 | 0.3708 | 0.4641 | 0.4123 | 0.3271 |
-| Support Vector Machine | 0.7578 | 0.7718 | 0.2684 | 0.6200 | 0.3746 | 0.2867 |
+# Methodology
+Data Preprocessing
 
-### Evaluation Metrics
+    Download HAR dataset.
+    Load inertial sensor signals.
+    Normalize features using training statistics.
+    Create custom PyTorch datasets and dataloaders.
 
-- **Accuracy:** proportion of all predictions that are correct.
-- **AUC:** area under the ROC curve; measures discrimination between positive and negative classes across thresholds.
-- **Precision:** proportion of predicted positive cases that are truly positive.
-- **Recall:** proportion of actual positive cases correctly identified.
-- **F1:** harmonic mean of precision and recall.
-- **MCC:** Matthews Correlation Coefficient; summarizes agreement between predicted and actual classes using all four confusion-matrix outcomes. It ranges from -1 to +1.
+# Models Implemented
+Simple RNN
 
-### Results and Best-Model Observation
+Standard recurrent neural network:
 
-From the supplied comparison results:
+h_t = tanh(Wx_t + Uh_(t-1))
 
-- **Highest Accuracy:** K-Nearest Neighbors (0.8891)
-- **Highest AUC:** Logistic Regression (0.7722)
-- **Highest Precision:** K-Nearest Neighbors (0.5758)
-- **Highest Recall:** Logistic Regression (0.6238)
-- **Highest F1:** Decision Tree (0.4247)
-- **Highest MCC:** Decision Tree (0.3406)
+Characteristics:
 
-A model should not be selected using accuracy alone, especially if the target classes are imbalanced. F1 and MCC can help assess balanced classification performance, while precision and recall show different trade-offs. Based on the supplied results, the model with the highest F1 and/or MCC is a reasonable candidate when balanced performance is the priority; the final choice should reflect the project's objective and should be verified against the final evaluation pipeline.
+    Simple architecture
+    Fast training
+    Suffers from vanishing gradients
 
-To run the application locally, install the dependencies from `requirements.txt` and run:
+LSTM
 
-```powershell
-python -m pip install -r requirements.txt
-python -m streamlit run app.py
-```
+Long Short-Term Memory network:
+
+Components:
+
+    Input Gate
+    Forget Gate
+    Output Gate
+    Cell State
+
+Advantages:
+
+    Handles long-term dependencies
+    Reduces vanishing gradient problem
+
+GRU
+
+Gated Recurrent Unit:
+
+Components:
+
+    Update Gate
+    Reset Gate
+
+Advantages:
+
+    Fewer parameters than LSTM
+    Faster training
+    Competitive performance
+
+Experiments
+Experiment 1: HAR Classification
+
+Models Compared:
+
+    RNN
+    LSTM
+    GRU
+
+Evaluation Metrics:
+
+    Accuracy
+    Macro F1-Score
+    Confusion Matrix
+
+Experiment 2: Adding Problem
+
+Sequence Lengths:
+
+T = [50, 100, 200, 400]
+
+Objective: Predict the sum of two marked positions in a sequence.
+
+Metric:
+
+    Mean Squared Error (MSE)
+
+Purpose:
+
+    Evaluate memory retention
+    Observe performance degradation with increasing sequence length
+
+Visualizations
+1. Class Distribution
+
+File:
+
+class_balance.png
+
+Shows the distribution of activity classes in the HAR training set.
+2. Confusion Matrix
+
+File:
+
+confusion_matrix.png
+
+Displays classification performance for the best-performing model.
+3. Learning Curve
+
+File:
+
+learning_curve_T200.png
+
+Compares training losses of:
+
+    RNN
+    LSTM
+    GRU
+
+for sequence length T = 200.
+4. MSE vs Sequence Length
+
+File:
+
+mse_vs_T.png
+
+Demonstrates model robustness as sequence length increases.
+5. Gradient Norm Analysis
+
+File:
+
+gradient_norm.png
+
+Illustrates the vanishing gradient phenomenon.
+6. Hidden Size Sweep
+
+File:
+
+hidden_size_sweep.png
+
+Investigates the impact of hidden layer size:
+
+[16, 32, 64, 128]
+
+on model performance.
+Results
+
+Results are stored in:
+
+results.csv
+
+Columns:
+Field	Description
+model	Model type
+accuracy	Classification accuracy
+macro_f1	Macro averaged F1 score
+Key Findings
+
+    LSTM generally achieves the highest classification performance.
+    GRU offers a strong trade-off between accuracy and computational efficiency.
+    Vanilla RNN performance degrades for long sequences due to vanishing gradients.
+    LSTM and GRU maintain better gradient flow and memory retention.
+    Increasing hidden size improves performance up to a threshold after which gains become marginal.
+
+Technologies Used
+
+    Python
+    PyTorch
+    NumPy
+    Pandas
+    Matplotlib
+    Seaborn
+    Scikit-Learn
+
+References
+
+    UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones
+
+    Hochreiter, S., & Schmidhuber, J. (1997). Long Short-Term Memory.
+
+    Cho, K. et al. (2014). Learning Phrase Representations using RNN Encoder-Decoder.
+
+    PyTorch Documentation: https://pytorch.org/
+
+Author
+
+SAKTHIVEL S.
+
+Deep Neural Networks Assignment 2
+
+
 
 ## Links
 
 - **GitHub Repository:** (https://github.com/ssakthiece-wq/SAKTHIVELS)
-- **Streamlit Application:** (https://share.streamlit.io/user/ssakthiece-wq))
-- **Dataset:** https://archive.ics.uci.edu/dataset/222/bank+marketing
