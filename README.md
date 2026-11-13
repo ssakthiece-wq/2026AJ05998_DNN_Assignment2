@@ -1,4 +1,9 @@
 # 2026AJ05998_DNN_Assignment2
+
+1.	GitHub Repository Link
+
+GitHub Repository: [https://github.com/ssakthiece-wq/SAKTHIVELS/](https://github.com/ssakthiece-wq/2026AJ05998_DNN_Assignment2)
+
 # Problem 1: Sequence Modeling with RNN, LSTM, and GRU Networks
 # Problem 2: The Transformer 
 # Student Information
