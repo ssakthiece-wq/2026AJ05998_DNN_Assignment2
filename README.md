@@ -296,6 +296,57 @@ Technologies Used
 
     Python|    PyTorch|    NumPy|   Pandas|    Matplotlib|    Seaborn |    Scikit-Learn
 
+***2. Problem 2: Transformer from Scratch***
+
+**Attention and Encoder-Block Unit Tests**
+
+●Scaled Dot-Product Attention: Row softmax sum Σ𝑗𝐴𝑖𝑗=1.0 verified for all rows. Numerical outputs matched torch.nn.functional.scaled_dot_product_attention within tolerance <1×10−5.
+
+●Causal Masking: Verified that applying upper-triangular −∞ logit masks sets attention weight to strictly 0.0 for all future positions (𝑗>𝑖).
+
+**Parameter Count Derivation (𝒅=𝟏𝟐𝟖, 𝒅𝒇𝒇=𝟓𝟏𝟐)**
+
+Theoretical derivation for a single Transformer Encoder block:
+
+𝑃𝑟𝑜𝑗𝑒𝑐𝑡𝑖𝑜𝑛𝑊𝑒𝑖𝑔ℎ𝑡𝑠(𝑊𝑄,𝑊𝐾,𝑊𝑉,𝑊𝑂)=4⋅𝑑2=4⋅(128)2=65,536
+𝐹𝑒𝑒𝑑−𝐹𝑜𝑟𝑤𝑎𝑟𝑑𝑁𝑒𝑡𝑤𝑜𝑟𝑘(𝑊1,𝑊2)=2⋅𝑑⋅𝑑𝑓𝑓=2⋅128⋅512=131,072
+𝑇𝑜𝑡𝑎𝑙𝐵𝑙𝑜𝑐𝑘𝑊𝑒𝑖𝑔ℎ𝑡𝑃𝑎𝑟𝑎𝑚𝑒𝑡𝑒𝑟𝑠=65,536+131,072=196,608
+
+Reconciliation with PyTorch parameter count includes LayerNorm gains/biases (4𝑑) and projection layer biases
+(4𝑑+𝑑𝑓𝑓+𝑑), matching sum(p.numel()) exactly.
+
+**Task A: Transformer Encoder Classifier on UCI HAR Data**
+**Table 3: Positional Encoding Ablation on HAR Dataset**
+
+|Positional Encoding Variant| Parameters| Mean Test Accuracy (%)| Mean Macro F1
+| :--- | :---: | ---: | ---: |
+None (No Position Info)| 398,726| 87.89% ± 2.73%| 0.8765
+Sinusoidal Encoding| 398,726| 88.51% ± 0.39%| 0.8836
+Learned Encoding| 415,238| 88.79% ± 1.08%| 0.8853
+
+●Analysis: Omitting positional information increases test variance across seeds (accuracy ranges from 85.58% to 90.91%), confirming that explicit positional awareness stabilizes temporal feature extraction. 
+
+**Task B: Character Language Model on Tiny Shakespeare**
+
+A 4-layer Causal Transformer Language Model (𝑑=128,ℎ=4, context length 128, total parameters = 810,049) was trained on Tiny Shakespeare.
+
+** ●Validation Loss:** 1.7741𝑛𝑎𝑡𝑠 (Run 1: 1.7741, Run 2: 1.7748).
+**Bits Per Character (BPC):**
+
+𝐵𝑃𝐶=𝐿𝑜𝑠𝑠(𝑛𝑎𝑡𝑠)𝑙𝑛2=1.77410.693147=2.5595𝑏𝑝𝑐
+● Training Throughput: ≈15.53𝑠𝑒𝑐/𝑒𝑝𝑜𝑐ℎ on Colab T4 GPU.
+● Temperature Generation Analysis (𝑵=𝟓𝟎𝟎 characters)
+● **Temperature 0.2:** Highly deterministic, repetitive phrasing ("the see the shall come the be...").
+● **Temperature 0.8:** Balanced entropy, structured character relationships, realistic Shakespearean formatting.
+● **Temperature 1.5:** High entropy, frequent gibberish character combinations and broken syntax ("trotuncnene, thekfuics doke...").
+
+**Analysis and Ablations**
+●
+Attention Heatmaps: Visualization shows Head 1 specializing in adjacent character transitions, while Head 2
+tracks long-range syntactic patterns like line breaks and character names.
+●
+Causal Mask Removal Experiment: Removing the causal mask allows information leakage across time steps during training. Training loss drops immediately to ≈2.0𝑛𝑎𝑡𝑠 because tokens can directly inspect future answers. At test time, autoregressive generation completely fails because the network never learned causal dependency tracking.
+
 References
 
     UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/human+activity+recognition+using+smartphones
