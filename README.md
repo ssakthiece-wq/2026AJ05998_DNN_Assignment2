@@ -24,17 +24,18 @@ This assignment investigates recurrent neural network architectures for sequenti
 # Dataset
 Human Activity Recognition (HAR)
 
-**1.	Data pipelines :**
+### 1.	Data pipelines :
 
 1) Input Dimensions: 128 sequence steps across 9 inertial signal channels (𝑁𝑡𝑟𝑎𝑖𝑛=7,352, 𝑁𝑡𝑒𝑠𝑡=2,947).
 2) Validation Split: 4 subjects were held out from the 21 training subjects using np.random.default_rng(seed).choice(train_subjects, 4, replace=False) for each of the 3 seeds (42, 123, 999).
 3) Preprocessing: Per-channel mean and standard deviation were calculated strictly on the training partition of each split to prevent data leakage.
 
-# Dataset Shape:
+# Dataset URL:
 Split	Samples	Sequence Length	Features
 
 Training	7352	128	9
 Testing	2947	128	9
+
 **Dataset URL:** url = 'https://archive.ics.uci.edu/static/public/240/human+activity+recognition+using+smartphones.zip'
 Sensor Signals:
 
@@ -245,15 +246,12 @@ Table 2: Test MSE and Solved Run Statistics across Sequence Lengths (𝑻)
 𝑻=𝟓𝟎| Vanilla RNN| 0.1745 ± 0.0005| 0 / 3
 | | LSTM| 0.0703 ± 0.0894| 2 / 3
 | |GRU| 0.0058 ± 0.0035| 3 / 3
-
 𝑻=𝟏𝟎𝟎| Vanilla RNN| 0.1701 ± 0.0005| 0 / 3
 | | LSTM| 0.1700 ± 0.0013| 0 / 3
-| | GRU| 0.0043 ± 0.0007 3 / 3
-
+| | GRU| 0.0043 ± 0.0007 | 3 / 3
 𝑻=𝟐𝟎𝟎| Vanilla RNN| 0.1696 ± 0.0020| 0 / 3
 | | LSTM| 0.1696 ± 0.0026| 0 / 3
 | | GRU| 0.0082 ± 0.0036| 3 / 3
-
 𝑻=𝟒𝟎𝟎 |Vanilla RNN| 0.1573 ± 0.0055| 0 / 3
 | | LSTM| 0.1566 ± 0.0055| 0 / 3
 | | GRU| 0.1503 ± 0.0018| 0 / 3
@@ -268,12 +266,7 @@ Results are stored in:
 
 results.csv
 
-Columns:
-Field	Description
-model	Model type
-accuracy	Classification accuracy
-macro_f1	Macro averaged F1 score
-Key Findings
+**Key Findings**
 
     LSTM generally achieves the highest classification performance.
     GRU offers a strong trade-off between accuracy and computational efficiency.
@@ -302,7 +295,6 @@ SAKTHIVEL S.
 Deep Neural Networks Assignment 2
 
 
-
 ## Links
 
-- **GitHub Repository:** (https://github.com/ssakthiece-wq/SAKTHIVELS)
+- **GitHub Repository:** (https://github.com/ssakthiece-wq/2026AJ05998_DNN_Assignment2/)
