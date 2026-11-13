@@ -133,13 +133,15 @@ Evaluation Verification:
 Theoretical Parameter Derivations vs. Code (d=9, h=64):
 
 ● RNN Cell:
-𝑃𝑎𝑟𝑎𝑚𝑠=ℎ⋅(𝑑+ℎ+1)=64⋅(9+64+1)=4,736
+params=h*(d+h+1)=64*(9+64+1)=4,736
+
 
 ●LSTM Cell:
-𝑃𝑎𝑟𝑎𝑚𝑠=4⋅ℎ⋅(𝑑+ℎ+1)=4⋅64⋅(9+64+1)=18,944
+params=4*h*(d+h+1)=4*64*(9+64+1)=18,944
 
 ●GRU Cell:
-𝑃𝑎𝑟𝑎𝑚𝑠=3⋅ℎ⋅(𝑑+ℎ+1)=3⋅64⋅(9+64+1)=14,208
+params=3*h*(d+h+1)=3*64*(9+64+1)=14,208
+
 
 ●PyTorch Parameter Count Reconciliation: PyTorch built-in layers report 4,800 (RNN), 19,200 (LSTM), and 14,400 (GRU) parameters because PyTorch maintains two independent bias vectors per gate (𝑏𝑖ℎ and 𝑏ℎℎ), adding 1⋅ℎ, 4⋅ℎ, and 3⋅ℎ extra parameters respectively. Custom cells fuse these into a single unified bias vector.
 
@@ -245,16 +247,16 @@ Table 2: Test MSE and Solved Run Statistics across Sequence Lengths (𝑻)
 
 |Sequence Length (𝑇)| Mode| Mean Test MSE| Solved Runs Total|
 | :--- | :---: | ---: | ---: | 
-𝑻=𝟓𝟎| Vanilla RNN| 0.1745 ± 0.0005| 0 / 3
+**T=50**| Vanilla RNN| 0.1745 ± 0.0005| 0 / 3
 | | LSTM| 0.0703 ± 0.0894| 2 / 3
 | |GRU| 0.0058 ± 0.0035| 3 / 3
-𝑻=𝟏𝟎𝟎| Vanilla RNN| 0.1701 ± 0.0005| 0 / 3
+**T=100**| Vanilla RNN| 0.1701 ± 0.0005| 0 / 3
 | | LSTM| 0.1700 ± 0.0013| 0 / 3
 | | GRU| 0.0043 ± 0.0007 | 3 / 3
-𝑻=𝟐𝟎𝟎| Vanilla RNN| 0.1696 ± 0.0020| 0 / 3
+**T=200**| Vanilla RNN| 0.1696 ± 0.0020| 0 / 3
 | | LSTM| 0.1696 ± 0.0026| 0 / 3
 | | GRU| 0.0082 ± 0.0036| 3 / 3
-𝑻=𝟒𝟎𝟎 |Vanilla RNN| 0.1573 ± 0.0055| 0 / 3
+**T=400** |Vanilla RNN| 0.1573 ± 0.0055| 0 / 3
 | | LSTM| 0.1566 ± 0.0055| 0 / 3
 | | GRU| 0.1503 ± 0.0018| 0 / 3
 
@@ -306,16 +308,16 @@ Technologies Used
 
 ●Causal Masking: Verified that applying upper-triangular −∞ logit masks sets attention weight to strictly 0.0 for all future positions (𝑗>𝑖).
 
-**Parameter Count Derivation (𝒅=𝟏𝟐𝟖, 𝒅𝒇𝒇=𝟓𝟏𝟐)**
+**Parameter Count Derivation (d=128, dff=512)**
 
 Theoretical derivation for a single Transformer Encoder block:
+projection weights(WQ,WK,WV,WO)=4⋅d2=*⋅(128)2=65,536
+Feed-forward network(W1,W2)=2.d.dff=2.128.512=131,072
+total block weight parameters= 65536+131,072=196608
 
-𝑃𝑟𝑜𝑗𝑒𝑐𝑡𝑖𝑜𝑛𝑊𝑒𝑖𝑔ℎ𝑡𝑠(𝑊𝑄,𝑊𝐾,𝑊𝑉,𝑊𝑂)=4⋅𝑑2=4⋅(128)2=65,536
-𝐹𝑒𝑒𝑑−𝐹𝑜𝑟𝑤𝑎𝑟𝑑𝑁𝑒𝑡𝑤𝑜𝑟𝑘(𝑊1,𝑊2)=2⋅𝑑⋅𝑑𝑓𝑓=2⋅128⋅512=131,072
-𝑇𝑜𝑡𝑎𝑙𝐵𝑙𝑜𝑐𝑘𝑊𝑒𝑖𝑔ℎ𝑡𝑃𝑎𝑟𝑎𝑚𝑒𝑡𝑒𝑟𝑠=65,536+131,072=196,608
 
 Reconciliation with PyTorch parameter count includes LayerNorm gains/biases (4𝑑) and projection layer biases
-(4𝑑+𝑑𝑓𝑓+𝑑), matching sum(p.numel()) exactly.
+(4d+dff+d), matching sum(p.numel()) exactly.
 
 **Task A: Transformer Encoder Classifier on UCI HAR Data**
 **Table 3: Positional Encoding Ablation on HAR Dataset**
