@@ -1,7 +1,6 @@
 # 2026AJ05998_DNN_Assignment2
-Deep Neural Networks Assignment 2
-Sequence Modeling with RNN, LSTM, and GRU Networks
-Student Information
+# Sequence Modeling with RNN, LSTM, and GRU Networks
+# Student Information
 
     Name: SAKTHIVEL S.
     Course: Deep Neural Networks
