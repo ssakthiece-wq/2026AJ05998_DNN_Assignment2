@@ -222,70 +222,41 @@ Detailed Per-Seed Breakdown (from results.csv):
 **● RNN:**
 
 * Seed 42: Acc 77.81%, Macro F1 0.7741, 0.314s/epoch
-*Seed 123: Acc 82.15%, Macro F1 0.8197, 0.270s/epoch
-*Seed 999: Acc 72.75%, Macro F1 0.7184, 0.248s/epoch
-●
-LSTM:
-○
-Seed 42: Acc 88.06%, Macro F1 0.8806, 0.258s/epoch
-○
-Seed 123: Acc 89.45%, Macro F1 0.8946, 0.303s/epoch
-○
-Seed 999: Acc 89.68%, Macro F1 0.8975, 0.281s/epoch
-●
-GRU:
-○
-Seed 42: Acc 90.16%, Macro F1 0.9018, 0.254s/epoch
-○
-Seed 123: Acc 90.43%, Macro F1 0.9053, 0.295s/epoch
-○
-Seed 999: Acc 91.72%, Macro F1 0.9183, 0.282s/epoch Adding Problem Benchmark & Solved Runs
+* Seed 123: Acc 82.15%, Macro F1 0.8197, 0.270s/epoch
+* Seed 999: Acc 72.75%, Macro F1 0.7184, 0.248s/epoch
+* 
+**●LSTM:**
+  
+* Seed 42: Acc 88.06%, Macro F1 0.8806, 0.258s/epoch
+* Seed 123: Acc 89.45%, Macro F1 0.8946, 0.303s/epoch
+* Seed 999: Acc 89.68%, Macro F1 0.8975, 0.281s/epoch
+
+**● GRU:**
+* Seed 42: Acc 90.16%, Macro F1 0.9018, 0.254s/epoch
+* Seed 123: Acc 90.43%, Macro F1 0.9053, 0.295s/epoch
+* Seed 999: Acc 91.72%, Macro F1 0.9183, 0.282s/epoch
+
+Adding Problem Benchmark & Solved Runs
 Runs are marked as solved if the final Test MSE is <0.05 (compared to baseline MSE ≈0.167).
 Table 2: Test MSE and Solved Run Statistics across Sequence Lengths (𝑻)
-Sequence Length (𝑇)
-Model
-Mean Test MSE
-Solved Runs / Total
-𝑻=𝟓𝟎
-Vanilla RNN
-0.1745 ± 0.0005
-0 / 3
-LSTM
-0.0703 ± 0.0894
-2 / 3
-GRU
-0.0058 ± 0.0035
-3 / 3
-𝑻=𝟏𝟎𝟎
-Vanilla RNN
-0.1701 ± 0.0005
-0 / 3
-LSTM
-0.1700 ± 0.0013
-0 / 3
-GRU
-0.0043 ± 0.0007
-3 / 3
-𝑻=𝟐𝟎𝟎
-Vanilla RNN
-0.1696 ± 0.0020
-0 / 3
-LSTM
-0.1696 ± 0.0026
-0 / 3
-GRU
-0.0082 ± 0.0036
-3 / 3
-𝑻=𝟒𝟎𝟎
-Vanilla RNN
-0.1573 ± 0.0055
-0 / 3
-LSTM
-0.1566 ± 0.0055
-0 / 3
-GRU
-0.1503 ± 0.0018
-0 / 3
+
+|Sequence Length (𝑇)| Mode| Mean Test MSE| Solved Runs Total|
+| :--- | :---: | ---: | ---: | 
+𝑻=𝟓𝟎| Vanilla RNN| 0.1745 ± 0.0005| 0 / 3
+| | LSTM| 0.0703 ± 0.0894| 2 / 3
+| |GRU| 0.0058 ± 0.0035| 3 / 3
+
+𝑻=𝟏𝟎𝟎| Vanilla RNN| 0.1701 ± 0.0005| 0 / 3
+| | LSTM| 0.1700 ± 0.0013| 0 / 3
+| | GRU| 0.0043 ± 0.0007 3 / 3
+
+𝑻=𝟐𝟎𝟎| Vanilla RNN| 0.1696 ± 0.0020| 0 / 3
+| | LSTM| 0.1696 ± 0.0026| 0 / 3
+| | GRU| 0.0082 ± 0.0036| 3 / 3
+
+𝑻=𝟒𝟎𝟎 |Vanilla RNN| 0.1573 ± 0.0055| 0 / 3
+| | LSTM| 0.1566 ± 0.0055| 0 / 3
+| | GRU| 0.1503 ± 0.0018| 0 / 3
 
 
 
